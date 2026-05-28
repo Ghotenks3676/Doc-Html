@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevDocs Ultimate — HTML5 & CSS Complete Reference</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&family=DM+Sans:wght@400;500;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #090b10;
+            --bg-base: #0d1017;
+            --bg-surface: #131720;
+            --bg-card: #1e2535;
+            --text-primary: #e6edf3;
+            --text-muted: #8b949e;
+            --accent-blue: #4d8ef0;
+            --accent-cyan: #3ecfcf;
+            --accent-violet: #9b6dff;
+            --accent-amber: #f0b84d;
+            --accent-rose: #f06090;
+            --accent-green: #4dcf8e;
+            --border-color: #30363d;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-void: #ffffff;
+                --bg-base: #f6f8fa;
+                --bg-surface: #eaeef2;
+                --bg-card: #ffffff;
+                --text-primary: #24292f;
+                --text-muted: #57606a;
+                --border-color: #d0d7de;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { font-size: 16px; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg-void);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border-left: 1px solid var(--border-color);
+            padding-left: 20px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-surface);
+            color: var(--accent-cyan);
+        }
+
+        .nav-btn.active {
+            background: rgba(77, 142, 240, 0.2);
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--accent-blue);
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .search-box::placeholder {
+            color: var(--text-muted);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1.5rem;
+            margin-left: auto;
+        }
+
+        /* ===== SIDEBAR ===== */
+        aside {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 280px;
+            height: calc(100vh - 60px);
+            background: var(--bg-base);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 20px 0;
+            z-index: 99;
+        }
+
+        .nav-section {
+            margin-bottom: 10px;
+        }
+
+        .nav-section-title {
+            padding: 10px 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-surface);
+            color: var(--accent-cyan);
+        }
+
+        .nav-item.active {
+            background: rgba(77, 142, 240, 0.1);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+
+        .nav-item-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        main {
+            margin-left: 280px;
+            margin-top: 60px;
+            padding: 40px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== PROPERTY CARD ===== */
+        .property-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            scroll-margin-top: 100px;
+        }
+
+        .property-name {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .property-type {
+            display: inline-block;
+            background: rgba(62, 207, 207, 0.2);
+            color: var(--accent-cyan);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .property-description {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .subsection {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .subsection:first-of-type {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .subsection-title {
+            font-weight: 600;
+            color: var(--accent-blue);
+            font-size: 1rem;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== PARAMETERS TABLE ===== */
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .params-table thead {
+            background: rgba(77, 142, 240, 0.1);
+        }
+
+        .params-table th {
+            text-align: left;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .params-table td {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+        }
+
+        .params-table tbody tr:hover {
+            background: rgba(62, 207, 207, 0.08);
+        }
+
+        .param-name {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-violet);
+            font-weight: 600;
+        }
+
+        .param-type {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-amber);
+            font-size: 0.85rem;
+        }
+
+        /* ===== CODE BLOCK ===== */
+        .code-wrap {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .code-header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .code-header-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28c940; }
+
+        .code-copy-btn {
+            background: var(--accent-blue);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .code-copy-btn:hover {
+            background: var(--accent-cyan);
+            transform: scale(1.05);
+        }
+
+        .code-block {
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            color: #9ecbff;
+            line-height: 1.5;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            main {
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+
+            aside {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            aside.open {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            header {
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                max-width: 200px;
+                order: 3;
+                flex-basis: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            html { font-size: 14px; }
+
+            header {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 0.95rem;
+            }
+
+            .nav-tabs {
+                padding-left: 0;
+                border-left: none;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            main {
+                padding: 20px 15px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .property-card {
+                padding: 16px;
+            }
+
+            .params-table {
+                font-size: 0.8rem;
+            }
+
+            .params-table th, .params-table td {
+                padding: 8px;
+            }
+
+            .code-block {
+                font-size: 0.75rem;
+                padding: 12px;
+            }
+
+            aside {
+                width: 100%;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(155, 109, 255, 0.2);
+            color: var(--accent-violet);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: var(--accent-violet);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, rgba(77, 142, 240, 0.1), rgba(62, 207, 207, 0.1));
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <div class="logo">📚 DevDocs</div>
+            <div class="nav-tabs">
+                <button class="nav-btn active" id="htmlBtn" onclick="switchPage('html')">📄 HTML</button>
+                <button class="nav-btn" id="cssBtn" onclick="switchPage('css')">🎨 CSS</button>
+            </div>
+        </div>
+        <input type="text" class="search-box" id="searchInput" placeholder="Buscar...">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+        <div class="nav-section" id="sidebarSection"></div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HTML PAGE -->
+        <div id="html" class="content-section active">
+            <div class="section-header">
+                <div class="section-title">HTML5 Tags Reference</div>
+                <div class="section-subtitle">Documentação completa de todas as tags HTML5 com exemplos práticos</div>
+            </div>
+
+            <div class="stats-box">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Tags</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">600+</div>
+                        <div class="stat-label">Atributos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">250+</div>
+                        <div class="stat-label">Exemplos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="htmlContent"></div>
+        </div>
+
+        <!-- CSS PAGE -->
+        <div id="css" class="content-section">
+            <div class="section-header">
+                <div class="section-title">CSS Properties Reference</div>
+                <div class="section-subtitle">Documentação completa de todas as propriedades CSS3 com parâmetros detalhados</div>
+            </div>
+
+            <div class="stats-box">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Properties</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">800+</div>
+                        <div class="stat-label">Valores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">400+</div>
+                        <div class="stat-label">Exemplos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cssContent"></div>
+        </div>
+    </main>
+
+    <script>
+        // HTML TAGS DATABASE
+        const htmlTags = [
+            {
+                name: 'a',
+                type: 'Inline',
+                description: 'Cria um hiperlink para outras páginas, arquivos ou âncoras. Elemento mais importante para navegação web.',
+                attributes: [
+                    { name: 'href', type: 'URL', desc: 'Endereço do link (obrigatório)' },
+                    { name: 'target', type: 'string', desc: '_blank (nova aba), _self (mesma aba), _parent, _top' },
+                    { name: 'rel', type: 'string', desc: 'noopener, noreferrer, nofollow, external, alternate' },
+                    { name: 'title', type: 'string', desc: 'Texto ao passar mouse' },
+                    { name: 'download', type: 'string', desc: 'Força download do arquivo' },
+                    { name: 'hreflang', type: 'language', desc: 'Idioma do documento linked' }
+                ],
+                examples: [
+                    { title: 'Link Simples', code: '<a href="https://example.com">Clique aqui</a>' },
+                    { title: 'Link em Nova Aba', code: '<a href="https://example.com" target="_blank" rel="noopener noreferrer">\n  Abre em Nova Aba\n</a>' },
+                    { title: 'Link com Download', code: '<a href="documento.pdf" download="meu-documento">Baixar PDF</a>' },
+                    { title: 'Âncora Interna', code: '<a href="#secao2">Ir para Seção 2</a>' }
+                ]
+            },
+            {
+                name: 'button',
+                type: 'Inline-Block',
+                description: 'Cria um botão clicável interativo. Mais semântico e acessível que usar divs.',
+                attributes: [
+                    { name: 'type', type: 'string', desc: 'button, submit, reset' },
+                    { name: 'disabled', type: 'boolean', desc: 'Desativa o botão' },
+                    { name: 'onclick', type: 'javascript', desc: 'Função ao clicar' },
+                    { name: 'form', type: 'id', desc: 'Associa a um formulário' },
+                    { name: 'name', type: 'string', desc: 'Nome do botão' },
+                    { name: 'value', type: 'string', desc: 'Valor do botão' }
+                ],
+                examples: [
+                    { title: 'Botão Básico', code: '<button type="button">Clique aqui</button>' },
+                    { title: 'Botão Desativado', code: '<button type="button" disabled>Desativado</button>' },
+                    { title: 'Botão Submit', code: '<button type="submit">Enviar Formulário</button>' }
+                ]
+            },
+            {
+                name: 'div',
+                type: 'Block',
+                description: 'Elemento divisor genérico. Sem semântica específica, usado para agrupamento e estilo.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe CSS' },
+                    { name: 'id', type: 'string', desc: 'ID único do elemento' },
+                    { name: 'style', type: 'CSS', desc: 'CSS inline' },
+                    { name: 'data-*', type: 'custom', desc: 'Atributo customizado para dados' }
+                ],
+                examples: [
+                    { title: 'Div Básica', code: '<div class="container">\n  Conteúdo aqui\n</div>' },
+                    { title: 'Div com ID', code: '<div id="header">\n  Cabeçalho da página\n</div>' }
+                ]
+            },
+            {
+                name: 'header',
+                type: 'Block / Sectioning',
+                description: 'Representa o cabeçalho de uma seção ou página. Elemento semântico.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe CSS' },
+                    { name: 'id', type: 'string', desc: 'ID único' }
+                ],
+                examples: [
+                    { title: 'Header Semântico', code: '<header>\n  <h1>Meu Website</h1>\n  <nav>...</nav>\n</header>' }
+                ]
+            },
+            {
+                name: 'nav',
+                type: 'Block / Sectioning',
+                description: 'Agrupa links de navegação. Elemento semântico para menus.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' },
+                    { name: 'aria-label', type: 'string', desc: 'Label para acessibilidade' }
+                ],
+                examples: [
+                    { title: 'Menu de Navegação', code: '<nav>\n  <ul>\n    <li><a href="/">Home</a></li>\n    <li><a href="/about">Sobre</a></li>\n  </ul>\n</nav>' }
+                ]
+            },
+            {
+                name: 'main',
+                type: 'Block / Sectioning',
+                description: 'Contém o conteúdo principal da página. Deve haver apenas um por página.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' },
+                    { name: 'id', type: 'string', desc: 'ID único' }
+                ],
+                examples: [
+                    { title: 'Main Content', code: '<main>\n  <article>\n    Conteúdo principal da página\n  </article>\n</main>' }
+                ]
+            },
+            {
+                name: 'footer',
+                type: 'Block / Sectioning',
+                description: 'Representa o rodapé de uma seção ou página.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' }
+                ],
+                examples: [
+                    { title: 'Footer', code: '<footer>\n  <p>&copy; 2024 Meu Site. Todos os direitos reservados.</p>\n</footer>' }
+                ]
+            },
+            {
+                name: 'h1, h2, h3, h4, h5, h6',
+                type: 'Block',
+                description: 'Títulos e subtítulos. h1 é o maior, h6 é o menor. Importante para SEO.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' },
+                    { name: 'id', type: 'string', desc: 'ID (útil para âncoras)' }
+                ],
+                examples: [
+                    { title: 'Hierarquia de Títulos', code: '<h1>Título Principal</h1>\n<h2>Subtítulo</h2>\n<h3>Seção Menor</h3>' }
+                ]
+            },
+            {
+                name: 'p',
+                type: 'Block',
+                description: 'Parágrafo de texto. Deve ser usado para blocos de texto corridos.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' }
+                ],
+                examples: [
+                    { title: 'Parágrafo Simples', code: '<p>Este é um parágrafo com texto corrido.</p>' }
+                ]
+            },
+            {
+                name: 'ul, ol, li',
+                type: 'Block',
+                description: 'Listas não-ordenadas (ul) e ordenadas (ol), com itens (li).',
+                attributes: [
+                    { name: 'type', type: 'string', desc: 'Para ol: 1, a, A, i, I' },
+                    { name: 'start', type: 'number', desc: 'Número inicial da lista' }
+                ],
+                examples: [
+                    { title: 'Lista Não-Ordenada', code: '<ul>\n  <li>Primeiro item</li>\n  <li>Segundo item</li>\n</ul>' },
+                    { title: 'Lista Ordenada', code: '<ol>\n  <li>Passo 1</li>\n  <li>Passo 2</li>\n</ol>' }
+                ]
+            },
+            {
+                name: 'img',
+                type: 'Inline',
+                description: 'Insere uma imagem. Tag sem fechamento. Alt text é obrigatório para acessibilidade.',
+                attributes: [
+                    { name: 'src', type: 'URL', desc: 'Caminho da imagem (obrigatório)' },
+                    { name: 'alt', type: 'string', desc: 'Texto alternativo (obrigatório)' },
+                    { name: 'width', type: 'number', desc: 'Largura em pixels' },
+                    { name: 'height', type: 'number', desc: 'Altura em pixels' },
+                    { name: 'loading', type: 'string', desc: 'lazy para lazy loading' }
+                ],
+                examples: [
+                    { title: 'Imagem Básica', code: '<img src="foto.jpg" alt="Descrição da foto">' },
+                    { title: 'Com Dimensões', code: '<img src="foto.jpg" alt="Foto" width="400" height="300">' },
+                    { title: 'Lazy Loading', code: '<img src="foto.jpg" alt="Foto" loading="lazy">' }
+                ]
+            },
+            {
+                name: 'input',
+                type: 'Inline',
+                description: 'Elemento de entrada de dados. Tag sem fechamento. Múltiplos tipos.',
+                attributes: [
+                    { name: 'type', type: 'string', desc: 'text, email, password, number, date, checkbox, radio, file, etc' },
+                    { name: 'name', type: 'string', desc: 'Nome do campo (para formulários)' },
+                    { name: 'placeholder', type: 'string', desc: 'Texto dica' },
+                    { name: 'required', type: 'boolean', desc: 'Campo obrigatório' },
+                    { name: 'disabled', type: 'boolean', desc: 'Desativa o campo' },
+                    { name: 'value', type: 'string', desc: 'Valor padrão' }
+                ],
+                examples: [
+                    { title: 'Input Text', code: '<input type="text" name="nome" placeholder="Digite seu nome">' },
+                    { title: 'Input Email', code: '<input type="email" name="email" required>' },
+                    { title: 'Input Password', code: '<input type="password" name="senha">' },
+                    { title: 'Checkbox', code: '<input type="checkbox" name="aceitar"> Aceitar termos' }
+                ]
+            },
+            {
+                name: 'label',
+                type: 'Inline',
+                description: 'Rótulo para input. Aumenta área clicável. Associar com for attribute.',
+                attributes: [
+                    { name: 'for', type: 'id', desc: 'ID do input associado' }
+                ],
+                examples: [
+                    { title: 'Label com Input', code: '<label for="email">Email:</label>\n<input type="email" id="email" name="email">' }
+                ]
+            },
+            {
+                name: 'form',
+                type: 'Block',
+                description: 'Agrupa elementos de um formulário. Essencial para envio de dados.',
+                attributes: [
+                    { name: 'action', type: 'URL', desc: 'URL para envio dos dados' },
+                    { name: 'method', type: 'string', desc: 'GET ou POST' },
+                    { name: 'enctype', type: 'string', desc: 'multipart/form-data para uploads' }
+                ],
+                examples: [
+                    { title: 'Formulário Básico', code: '<form action="/submit" method="POST">\n  <input type="text" name="nome" required>\n  <button type="submit">Enviar</button>\n</form>' }
+                ]
+            },
+            {
+                name: 'section',
+                type: 'Block / Sectioning',
+                description: 'Define uma seção temática do conteúdo. Elemento semântico.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' }
+                ],
+                examples: [
+                    { title: 'Seção', code: '<section>\n  <h2>Serviços</h2>\n  <p>Descrição dos serviços...</p>\n</section>' }
+                ]
+            },
+            {
+                name: 'article',
+                type: 'Block / Sectioning',
+                description: 'Conteúdo independente e reutilizável (post de blog, notícia, etc).',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' }
+                ],
+                examples: [
+                    { title: 'Artigo de Blog', code: '<article>\n  <h2>Título do Post</h2>\n  <p>Conteúdo...</p>\n</article>' }
+                ]
+            },
+            {
+                name: 'aside',
+                type: 'Block / Sectioning',
+                description: 'Conteúdo relacionado mas não principal (sidebar, aside).',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' }
+                ],
+                examples: [
+                    { title: 'Sidebar', code: '<aside>\n  <h3>Artigos Relacionados</h3>\n  <ul>...</ul>\n</aside>' }
+                ]
+            },
+            {
+                name: 'span',
+                type: 'Inline',
+                description: 'Elemento inline genérico. Para estilizar partes de texto.',
+                attributes: [
+                    { name: 'class', type: 'string', desc: 'Nome da classe' },
+                    { name: 'style', type: 'CSS', desc: 'CSS inline' }
+                ],
+                examples: [
+                    { title: 'Destaque de Texto', code: '<p>Este é um <span style="color: red">texto destacado</span>.</p>' }
+                ]
+            },
+            {
+                name: 'strong, em, i, b',
+                type: 'Inline',
+                description: 'Elementos de formatação: strong (importância), em (ênfase), i (itálico), b (bold).',
+                attributes: [],
+                examples: [
+                    { title: 'Strong e Em', code: '<p><strong>Importante:</strong> <em>Este texto está em ênfase</em></p>' },
+                    { title: 'Bold e Italic', code: '<p><b>Bold</b> e <i>itálico</i></p>' }
+                ]
+            },
+            {
+                name: 'table',
+                type: 'Block',
+                description: 'Tabela de dados. Combina com tr, td, th, thead, tbody, tfoot.',
+                attributes: [
+                    { name: 'border', type: 'number', desc: 'Espessura da borda (deprecated, usar CSS)' }
+                ],
+                examples: [
+                    { title: 'Tabela Simples', code: '<table>\n  <thead>\n    <tr><th>Nome</th><th>Idade</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>João</td><td>30</td></tr>\n  </tbody>\n</table>' }
+                ]
+            },
+            {
+                name: 'a (link)',
+                type: 'Inline',
+                description: 'Hiperlink. Elemento fundamental da web.',
+                attributes: [
+                    { name: 'href', type: 'URL', desc: 'Destino do link' }
+                ],
+                examples: [
+                    { title: 'Link', code: '<a href="https://example.com">Clique aqui</a>' }
+                ]
+            }
+        ];
+
+        // CSS PROPERTIES DATABASE
+        const cssProperties = [
+            {
+                name: 'align-content',
+                description: 'Alinha linhas de um flex/grid container quando há espaço extra no eixo transversal.',
+                params: [
+                    { name: 'flex-start', type: 'keyword', desc: 'Alinha ao início' },
+                    { name: 'flex-end', type: 'keyword', desc: 'Alinha ao fim' },
+                    { name: 'center', type: 'keyword', desc: 'Centraliza' },
+                    { name: 'space-between', type: 'keyword', desc: 'Espaço igual entre linhas' },
+                    { name: 'space-around', type: 'keyword', desc: 'Espaço ao redor de cada linha' },
+                    { name: 'space-evenly', type: 'keyword', desc: 'Espaço completamente igual' },
+                    { name: 'stretch', type: 'keyword', desc: 'Estica para preencher (padrão)' }
+                ],
+                examples: [
+                    { title: 'Flex com Wrap', code: `.flex {\n  display: flex;\n  flex-wrap: wrap;\n  align-content: center;\n  height: 300px;\n}` },
+                    { title: 'Grid Container', code: `.grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  align-content: space-between;\n  height: 500px;\n}` }
+                ]
+            },
+            {
+                name: 'align-items',
+                description: 'Alinha itens ao longo do eixo transversal (vertical em flex row).',
+                params: [
+                    { name: 'flex-start', type: 'keyword', desc: 'Alinha ao topo' },
+                    { name: 'flex-end', type: 'keyword', desc: 'Alinha ao fundo' },
+                    { name: 'center', type: 'keyword', desc: 'Centraliza verticalmente' },
+                    { name: 'stretch', type: 'keyword', desc: 'Estica para preencher altura' },
+                    { name: 'baseline', type: 'keyword', desc: 'Alinha pela baseline' }
+                ],
+                examples: [
+                    { title: 'Centralizar Verticalmente', code: `.flex-center {\n  display: flex;\n  align-items: center;\n  height: 200px;\n}` }
+                ]
+            },
+            {
+                name: 'align-self',
+                description: 'Sobrescreve align-items para um item específico em flex/grid.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Usa align-items do container' },
+                    { name: 'flex-start', type: 'keyword', desc: 'Alinha ao início' },
+                    { name: 'center', type: 'keyword', desc: 'Centraliza' },
+                    { name: 'flex-end', type: 'keyword', desc: 'Alinha ao fim' },
+                    { name: 'stretch', type: 'keyword', desc: 'Estica' }
+                ],
+                examples: [
+                    { title: 'Item Diferente', code: `.flex-item:last-child {\n  align-self: flex-end;\n}` }
+                ]
+            },
+            {
+                name: 'animation',
+                description: 'Atalho para todas as propriedades de animação CSS. Combina duração, função, delay, etc.',
+                params: [
+                    { name: 'animation-name', type: 'string', desc: 'Nome do @keyframes' },
+                    { name: 'animation-duration', type: 'time', desc: 'Duração (s ou ms)' },
+                    { name: 'animation-timing-function', type: 'keyword', desc: 'ease, linear, ease-in, ease-out' },
+                    { name: 'animation-delay', type: 'time', desc: 'Atraso antes de iniciar' },
+                    { name: 'animation-iteration-count', type: 'number|infinite', desc: 'Quantas vezes repetir' },
+                    { name: 'animation-direction', type: 'keyword', desc: 'normal, reverse, alternate' },
+                    { name: 'animation-fill-mode', type: 'keyword', desc: 'none, forwards, backwards, both' }
+                ],
+                examples: [
+                    { title: 'Animação Simples', code: `@keyframes slide {\n  from { transform: translateX(0); }\n  to { transform: translateX(100px); }\n}\n\n.box {\n  animation: slide 2s ease-in-out 1s infinite;\n}` },
+                    { title: 'Com Fill Mode', code: `.fade {\n  animation: fadeIn 1s ease forwards;\n  animation-delay: 0.5s;\n}` }
+                ]
+            },
+            {
+                name: 'aspect-ratio',
+                description: 'Mantém uma proporção largura/altura fixa para o elemento.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Sem restrição' },
+                    { name: 'width / height', type: 'ratio', desc: 'Ex: 16/9, 4/3, 1/1' }
+                ],
+                examples: [
+                    { title: 'Vídeo Responsivo', code: `.video {\n  width: 100%;\n  aspect-ratio: 16 / 9;\n}` },
+                    { title: 'Quadrado', code: `.square {\n  width: 200px;\n  aspect-ratio: 1;\n}` }
+                ]
+            },
+            {
+                name: 'background',
+                description: 'Atalho para todas as propriedades de fundo (cor, imagem, posição, tamanho, etc).',
+                params: [
+                    { name: 'background-color', type: 'color', desc: 'Cor de fundo' },
+                    { name: 'background-image', type: 'url|gradient', desc: 'Imagem ou gradiente' },
+                    { name: 'background-size', type: 'keyword|length', desc: 'cover, contain, auto, 100%' },
+                    { name: 'background-position', type: 'position', desc: 'center, top, left, etc' },
+                    { name: 'background-repeat', type: 'keyword', desc: 'repeat, no-repeat, repeat-x, repeat-y' }
+                ],
+                examples: [
+                    { title: 'Gradiente Linear', code: `.hero {\n  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n}` },
+                    { title: 'Imagem com Fallback', code: `.banner {\n  background: #ddd url('bg.jpg') center / cover no-repeat fixed;\n}` },
+                    { title: 'Múltiplas Camadas', code: `.overlay {\n  background: \n    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),\n    url('bg.jpg') center / cover;\n}` }
+                ]
+            },
+            {
+                name: 'background-color',
+                description: 'Define a cor de fundo do elemento.',
+                params: [
+                    { name: 'color', type: 'color', desc: 'hex, rgb, hsl, nome ou var()' },
+                    { name: 'transparent', type: 'keyword', desc: 'Transparente' },
+                    { name: 'currentColor', type: 'keyword', desc: 'Usa cor do texto' }
+                ],
+                examples: [
+                    { title: 'Cores Diferentes', code: `.hex { background-color: #4d8ef0; }\n.rgb { background-color: rgb(77, 142, 240); }\n.hsl { background-color: hsl(217, 89%, 62%); }` },
+                    { title: 'Com Variável', code: `.box { background-color: var(--primary-color); }` }
+                ]
+            },
+            {
+                name: 'background-image',
+                description: 'Define uma imagem ou gradiente como fundo do elemento.',
+                params: [
+                    { name: 'url()', type: 'function', desc: 'Caminho da imagem' },
+                    { name: 'linear-gradient()', type: 'function', desc: 'Gradiente linear' },
+                    { name: 'radial-gradient()', type: 'function', desc: 'Gradiente radial' },
+                    { name: 'conic-gradient()', type: 'function', desc: 'Gradiente cônico' },
+                    { name: 'repeating-linear-gradient()', type: 'function', desc: 'Gradiente repetido' },
+                    { name: 'none', type: 'keyword', desc: 'Sem imagem' }
+                ],
+                examples: [
+                    { title: 'URL de Imagem', code: `.bg {\n  background-image: url('pattern.png');\n  background-repeat: repeat;\n}` },
+                    { title: 'Gradiente Linear', code: `.grad {\n  background-image: linear-gradient(to right, red, yellow, green);\n}` },
+                    { title: 'Gradiente Radial', code: `.radial {\n  background-image: radial-gradient(circle, #fff 0%, #000 100%);\n}` }
+                ]
+            },
+            {
+                name: 'background-size',
+                description: 'Define o tamanho da imagem de fundo.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Tamanho original' },
+                    { name: 'cover', type: 'keyword', desc: 'Cobre o elemento (pode cortar)' },
+                    { name: 'contain', type: 'keyword', desc: 'Cabe no elemento (sem corte)' },
+                    { name: 'length', type: 'unit', desc: 'Tamanho específico (px, %)' },
+                    { name: 'width height', type: 'size', desc: 'Largura e altura separadas' }
+                ],
+                examples: [
+                    { title: 'Cover', code: `.hero {\n  background-image: url('bg.jpg');\n  background-size: cover;\n  height: 500px;\n}` },
+                    { title: 'Contain', code: `.contain {\n  background-size: contain;\n  background-repeat: no-repeat;\n}` },
+                    { title: 'Tamanho Específico', code: `.exact {\n  background-size: 300px 200px;\n}` }
+                ]
+            },
+            {
+                name: 'border',
+                description: 'Atalho para todas as propriedades de borda (largura, estilo, cor).',
+                params: [
+                    { name: 'width', type: 'length', desc: 'Espessura (px, em, pt, etc)' },
+                    { name: 'style', type: 'keyword', desc: 'solid, dashed, dotted, double, groove, ridge' },
+                    { name: 'color', type: 'color', desc: 'Cor da borda' }
+                ],
+                examples: [
+                    { title: 'Borda Sólida', code: `.box {\n  border: 2px solid #000;\n}` },
+                    { title: 'Bordas Diferentes', code: `.dashed { border: 3px dashed #f00; }\n.double { border: 4px double #0f0; }` },
+                    { title: 'Cor Gradiente (não funciona)', code: `.outline {\n  border: 2px solid;\n  border-image: linear-gradient(45deg, red, blue) 1;\n}` }
+                ]
+            },
+            {
+                name: 'border-radius',
+                description: 'Arredonda os cantos do elemento. Pode ser simétrico ou individual.',
+                params: [
+                    { name: 'length', type: 'unit', desc: 'Raio único (px, em, %)' },
+                    { name: '4 values', type: 'pattern', desc: 'top-left top-right bottom-right bottom-left' },
+                    { name: '2 values', type: 'pattern', desc: 'Diagonal oposta' }
+                ],
+                examples: [
+                    { title: 'Arredondamento Simples', code: `.rounded {\n  border-radius: 8px;\n}\n\n.pill {\n  border-radius: 50px;\n}\n\n.circle {\n  border-radius: 50%;\n}` },
+                    { title: 'Cantos Diferentes', code: `.custom {\n  border-radius: 10px 20px 30px 40px;\n}` },
+                    { title: 'Ellipse', code: `.ellipse {\n  border-radius: 50% / 25%;\n}` }
+                ]
+            },
+            {
+                name: 'box-shadow',
+                description: 'Adiciona uma ou mais sombras ao redor do elemento.',
+                params: [
+                    { name: 'offset-x', type: 'length', desc: 'Deslocamento horizontal' },
+                    { name: 'offset-y', type: 'length', desc: 'Deslocamento vertical' },
+                    { name: 'blur-radius', type: 'length', desc: 'Desfoque (opcional)' },
+                    { name: 'spread-radius', type: 'length', desc: 'Expansão (opcional)' },
+                    { name: 'color', type: 'color', desc: 'Cor da sombra' },
+                    { name: 'inset', type: 'keyword', desc: 'Sombra interna (opcional)' }
+                ],
+                examples: [
+                    { title: 'Sombras Comuns', code: `.subtle {\n  box-shadow: 0 2px 4px rgba(0,0,0,0.1);\n}\n\n.medium {\n  box-shadow: 0 4px 12px rgba(0,0,0,0.15);\n}\n\n.strong {\n  box-shadow: 0 10px 30px rgba(0,0,0,0.3);\n}` },
+                    { title: 'Múltiplas Sombras', code: `.multi {\n  box-shadow: \n    0 2px 4px rgba(0,0,0,0.1),\n    0 4px 8px rgba(0,0,0,0.15);\n}` },
+                    { title: 'Sombra Interna', code: `.inset {\n  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);\n}` }
+                ]
+            },
+            {
+                name: 'box-sizing',
+                description: 'Define se width/height incluem padding e border ou não.',
+                params: [
+                    { name: 'content-box', type: 'keyword', desc: 'Apenas conteúdo (padrão)' },
+                    { name: 'border-box', type: 'keyword', desc: 'Inclui padding e border (recomendado)' }
+                ],
+                examples: [
+                    { title: 'Reset Global Recomendado', code: `* {\n  box-sizing: border-box;\n}\n\n/* Agora width sempre é total */\n.box {\n  width: 200px;\n  padding: 20px;\n  border: 2px solid;\n  /* Total: 200px */\n}` }
+                ]
+            },
+            {
+                name: 'color',
+                description: 'Define a cor do texto do elemento.',
+                params: [
+                    { name: 'color name', type: 'keyword', desc: 'red, blue, green, etc' },
+                    { name: 'hex', type: 'color', desc: '#FF5500 ou #F50' },
+                    { name: 'rgb()', type: 'function', desc: 'rgb(255, 85, 0)' },
+                    { name: 'rgba()', type: 'function', desc: 'Com transparência: rgba(255, 85, 0, 0.5)' },
+                    { name: 'hsl()', type: 'function', desc: 'hsl(10, 100%, 50%)' },
+                    { name: 'hsla()', type: 'function', desc: 'Com transparência' },
+                    { name: 'var()', type: 'function', desc: 'Variável CSS: var(--primary)' }
+                ],
+                examples: [
+                    { title: 'Diferentes Formatos', code: `.hex { color: #f00; }\n.rgb { color: rgb(255, 0, 0); }\n.rgba { color: rgba(255, 0, 0, 0.8); }\n.hsl { color: hsl(0, 100%, 50%); }` },
+                    { title: 'Com Variável', code: `.primary { color: var(--primary-color); }` }
+                ]
+            },
+            {
+                name: 'cursor',
+                description: 'Define o tipo de cursor do mouse ao passar sobre o elemento.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Automático (padrão)' },
+                    { name: 'default', type: 'keyword', desc: 'Seta padrão' },
+                    { name: 'pointer', type: 'keyword', desc: 'Dedo (clicável)' },
+                    { name: 'text', type: 'keyword', desc: 'I (texto)' },
+                    { name: 'wait', type: 'keyword', desc: 'Relógio (carregando)' },
+                    { name: 'help', type: 'keyword', desc: 'Interrogação (ajuda)' },
+                    { name: 'move', type: 'keyword', desc: 'Setas (arrastável)' },
+                    { name: 'not-allowed', type: 'keyword', desc: 'Proibido' },
+                    { name: 'grab', type: 'keyword', desc: 'Mão aberta' },
+                    { name: 'grabbing', type: 'keyword', desc: 'Mão fechada' }
+                ],
+                examples: [
+                    { title: 'Cursores Comuns', code: `button { cursor: pointer; }\ninput:disabled { cursor: not-allowed; }\n.draggable { cursor: grab; }\n.dragging { cursor: grabbing; }` }
+                ]
+            },
+            {
+                name: 'display',
+                description: 'Define como o elemento é renderizado (tipo de caixa).',
+                params: [
+                    { name: 'block', type: 'keyword', desc: 'Ocupa toda largura disponível' },
+                    { name: 'inline', type: 'keyword', desc: 'Flui com texto, sem quebra' },
+                    { name: 'inline-block', type: 'keyword', desc: 'Híbrido: inline com dimensões' },
+                    { name: 'none', type: 'keyword', desc: 'Oculto, removido do fluxo' },
+                    { name: 'flex', type: 'keyword', desc: 'Flexbox (layout 1D)' },
+                    { name: 'grid', type: 'keyword', desc: 'Grid (layout 2D)' },
+                    { name: 'table', type: 'keyword', desc: 'Como tabela' },
+                    { name: 'contents', type: 'keyword', desc: 'Sem caixa, mostra filhos' }
+                ],
+                examples: [
+                    { title: 'Valores Comuns', code: `.block { display: block; }\n.inline { display: inline; }\n.hidden { display: none; }\n.flex { display: flex; }\n.grid { display: grid; }` }
+                ]
+            },
+            {
+                name: 'filter',
+                description: 'Aplica efeitos gráficos (blur, grayscale, brightness, etc) ao elemento.',
+                params: [
+                    { name: 'blur()', type: 'function', desc: 'Desfoque. Ex: blur(5px)' },
+                    { name: 'brightness()', type: 'function', desc: 'Brilho. Ex: brightness(1.2)' },
+                    { name: 'contrast()', type: 'function', desc: 'Contraste. Ex: contrast(1.5)' },
+                    { name: 'grayscale()', type: 'function', desc: 'Cinza. Ex: grayscale(100%)' },
+                    { name: 'hue-rotate()', type: 'function', desc: 'Matiz. Ex: hue-rotate(90deg)' },
+                    { name: 'invert()', type: 'function', desc: 'Inverte cores. Ex: invert(100%)' },
+                    { name: 'opacity()', type: 'function', desc: 'Opacidade. Ex: opacity(0.5)' },
+                    { name: 'saturate()', type: 'function', desc: 'Saturação. Ex: saturate(2)' },
+                    { name: 'sepia()', type: 'function', desc: 'Sépia. Ex: sepia(100%)' },
+                    { name: 'drop-shadow()', type: 'function', desc: 'Sombra. Ex: drop-shadow(5px 5px 10px rgba(0,0,0,0.3))' }
+                ],
+                examples: [
+                    { title: 'Efeitos em Hover', code: `img:hover {\n  filter: grayscale(100%) brightness(1.2);\n}\n\n.sepia { filter: sepia(80%); }\n.blur { filter: blur(8px); }` },
+                    { title: 'Múltiplos Efeitos', code: `.intense {\n  filter: contrast(1.5) saturate(2) brightness(1.1);\n}` }
+                ]
+            },
+            {
+                name: 'flex',
+                description: 'Atalho para flex-grow, flex-shrink e flex-basis.',
+                params: [
+                    { name: 'flex-grow', type: 'number', desc: 'Quanto cresce (padrão: 0)' },
+                    { name: 'flex-shrink', type: 'number', desc: 'Quanto encolhe (padrão: 1)' },
+                    { name: 'flex-basis', type: 'length', desc: 'Tamanho base (padrão: auto)' }
+                ],
+                examples: [
+                    { title: 'Distribuição Igual', code: `.item {\n  flex: 1;\n  /* Equivalente a: flex: 1 1 0 */\n}` },
+                    { title: 'Não Encolhe', code: `.no-shrink {\n  flex: 0 0 auto;\n}` },
+                    { title: 'Com Basis', code: `.specific {\n  flex: 1 1 200px;\n}` }
+                ]
+            },
+            {
+                name: 'flex-basis',
+                description: 'Define o tamanho base de um item flex antes de crescer ou encolher.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Baseado em width/height (padrão)' },
+                    { name: 'length', type: 'unit', desc: 'Tamanho específico (px, %)' },
+                    { name: 'content', type: 'keyword', desc: 'Baseado no conteúdo' }
+                ],
+                examples: [
+                    { title: 'Item com Basis', code: `.item {\n  flex-basis: 200px;\n  flex-grow: 1;\n  /* Começa em 200px e cresce */\n}` }
+                ]
+            },
+            {
+                name: 'flex-direction',
+                description: 'Define a direção principal dos itens flex.',
+                params: [
+                    { name: 'row', type: 'keyword', desc: 'Horizontal, esquerda para direita (padrão)' },
+                    { name: 'row-reverse', type: 'keyword', desc: 'Horizontal, direita para esquerda' },
+                    { name: 'column', type: 'keyword', desc: 'Vertical, topo para fundo' },
+                    { name: 'column-reverse', type: 'keyword', desc: 'Vertical, fundo para topo' }
+                ],
+                examples: [
+                    { title: 'Direções', code: `.row { flex-direction: row; }\n.column { flex-direction: column; }\n.reverse { flex-direction: row-reverse; }` }
+                ]
+            },
+            {
+                name: 'flex-grow',
+                description: 'Define quanto um item flex cresce quando há espaço disponível.',
+                params: [
+                    { name: 'number', type: 'number', desc: 'Fator de crescimento (padrão: 0)' }
+                ],
+                examples: [
+                    { title: 'Proporções', code: `.item1 { flex-grow: 1; }\n.item2 { flex-grow: 2; }\n/* item2 cresce 2x mais que item1 */` }
+                ]
+            },
+            {
+                name: 'flex-shrink',
+                description: 'Define quanto um item flex encolhe quando o espaço é limitado.',
+                params: [
+                    { name: 'number', type: 'number', desc: 'Fator de encolhimento (padrão: 1)' }
+                ],
+                examples: [
+                    { title: 'Sem Encolher', code: `.no-shrink { flex-shrink: 0; }` }
+                ]
+            },
+            {
+                name: 'flex-wrap',
+                description: 'Define se itens flex quebram em múltiplas linhas.',
+                params: [
+                    { name: 'nowrap', type: 'keyword', desc: 'Tudo em uma linha (padrão)' },
+                    { name: 'wrap', type: 'keyword', desc: 'Quebra para próxima linha' },
+                    { name: 'wrap-reverse', type: 'keyword', desc: 'Quebra na direção oposta' }
+                ],
+                examples: [
+                    { title: 'Com Quebra', code: `.flex-container {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 10px;\n}` }
+                ]
+            },
+            {
+                name: 'font',
+                description: 'Atalho para todas as propriedades de fonte.',
+                params: [
+                    { name: 'font-style', type: 'keyword', desc: 'normal, italic, oblique' },
+                    { name: 'font-weight', type: 'number|keyword', desc: '100-900, normal, bold' },
+                    { name: 'font-size', type: 'length', desc: 'Tamanho da fonte' },
+                    { name: 'line-height', type: 'length|number', desc: 'Altura da linha' },
+                    { name: 'font-family', type: 'string', desc: 'Família de fontes' }
+                ],
+                examples: [
+                    { title: 'Atalho Completo', code: `.heading {\n  font: bold 2rem/1.2 'Georgia', serif;\n}` }
+                ]
+            },
+            {
+                name: 'font-family',
+                description: 'Define qual(is) fonte(s) usar. Lista separada por vírgula com fallback.',
+                params: [
+                    { name: 'family name', type: 'string', desc: 'Ex: "Georgia", "Syne" (com aspas)' },
+                    { name: 'generic family', type: 'keyword', desc: 'serif, sans-serif, monospace, cursive, fantasy, system-ui' }
+                ],
+                examples: [
+                    { title: 'Com Fallback', code: `.serif {\n  font-family: 'Georgia', 'Times New Roman', serif;\n}\n\n.sans {\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n}\n\n.mono {\n  font-family: 'Fira Code', 'Courier New', monospace;\n}` }
+                ]
+            },
+            {
+                name: 'font-size',
+                description: 'Define o tamanho da fonte do elemento.',
+                params: [
+                    { name: 'px', type: 'unit', desc: 'Pixels (absoluto)' },
+                    { name: 'em', type: 'unit', desc: 'Relativo ao pai' },
+                    { name: 'rem', type: 'unit', desc: 'Relativo à raiz (recomendado)' },
+                    { name: '%', type: 'unit', desc: 'Percentual' },
+                    { name: 'small, medium, large', type: 'keyword', desc: 'Palavras-chave' }
+                ],
+                examples: [
+                    { title: 'Tamanhos Diferentes', code: `html { font-size: 16px; }\nh1 { font-size: 2rem; } /* 32px */\np { font-size: 1rem; } /* 16px */\nsmall { font-size: 0.875rem; } /* 14px */` }
+                ]
+            },
+            {
+                name: 'font-weight',
+                description: 'Define a espessura/peso da fonte.',
+                params: [
+                    { name: '100-900', type: 'number', desc: '100 fino, 400 normal, 700 bold, 900 muito grosso' },
+                    { name: 'normal', type: 'keyword', desc: 'Peso normal (400)' },
+                    { name: 'bold', type: 'keyword', desc: 'Peso forte (700)' },
+                    { name: 'lighter', type: 'keyword', desc: 'Mais leve que pai' },
+                    { name: 'bolder', type: 'keyword', desc: 'Mais forte que pai' }
+                ],
+                examples: [
+                    { title: 'Pesos Diferentes', code: `.thin { font-weight: 300; }\n.normal { font-weight: 400; }\n.bold { font-weight: 700; }\n.black { font-weight: 900; }` }
+                ]
+            },
+            {
+                name: 'gap',
+                description: 'Define espaço entre itens em flex ou grid containers.',
+                params: [
+                    { name: 'length', type: 'unit', desc: 'Espaço em todos os lados' },
+                    { name: 'row-gap column-gap', type: 'pattern', desc: 'Espaço vertical e horizontal' }
+                ],
+                examples: [
+                    { title: 'Flex com Gap', code: `.flex {\n  display: flex;\n  gap: 16px;\n}` },
+                    { title: 'Grid com Gap Diferente', code: `.grid {\n  display: grid;\n  row-gap: 20px;\n  column-gap: 16px;\n}` }
+                ]
+            },
+            {
+                name: 'grid-template-columns',
+                description: 'Define o layout de colunas em um grid container.',
+                params: [
+                    { name: 'length', type: 'unit', desc: 'Largura fixa (px)' },
+                    { name: '1fr', type: 'unit', desc: '1 fração do espaço disponível' },
+                    { name: 'repeat()', type: 'function', desc: 'Ex: repeat(3, 1fr)' },
+                    { name: 'auto-fit', type: 'keyword', desc: 'Ajusta colunas responsivamente' },
+                    { name: 'minmax()', type: 'function', desc: 'Ex: minmax(200px, 1fr)' }
+                ],
+                examples: [
+                    { title: 'Grid Responsivo', code: `.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 20px;\n}` },
+                    { title: 'Layout Fixo', code: `.layout {\n  grid-template-columns: 200px 1fr 150px;\n}` }
+                ]
+            },
+            {
+                name: 'grid-template-rows',
+                description: 'Define o layout de linhas em um grid container.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Altura baseada em conteúdo' },
+                    { name: 'length', type: 'unit', desc: 'Altura fixa' },
+                    { name: '1fr', type: 'unit', desc: 'Fração do espaço disponível' }
+                ],
+                examples: [
+                    { title: 'Linhas Diferentes', code: `.layout {\n  grid-template-rows: 60px 1fr 40px;\n}` }
+                ]
+            },
+            {
+                name: 'height',
+                description: 'Define a altura do elemento.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Baseado em conteúdo (padrão)' },
+                    { name: 'length', type: 'unit', desc: 'px, em, rem, %, vh' },
+                    { name: 'min-height', type: 'property', desc: 'Altura mínima' },
+                    { name: 'max-height', type: 'property', desc: 'Altura máxima' }
+                ],
+                examples: [
+                    { title: 'Alturas', code: `.fixed { height: 200px; }\n.screen { height: 100vh; }\n.limited { min-height: 100px; max-height: 400px; }` }
+                ]
+            },
+            {
+                name: 'justify-content',
+                description: 'Alinha itens ao longo do eixo principal em flex/grid.',
+                params: [
+                    { name: 'flex-start', type: 'keyword', desc: 'No início (padrão)' },
+                    { name: 'flex-end', type: 'keyword', desc: 'No fim' },
+                    { name: 'center', type: 'keyword', desc: 'Centralizado' },
+                    { name: 'space-between', type: 'keyword', desc: 'Espaço entre itens' },
+                    { name: 'space-around', type: 'keyword', desc: 'Espaço ao redor' },
+                    { name: 'space-evenly', type: 'keyword', desc: 'Espaço completamente igual' }
+                ],
+                examples: [
+                    { title: 'Alinhamentos', code: `.start { justify-content: flex-start; }\n.center { justify-content: center; }\n.between { justify-content: space-between; }\n.around { justify-content: space-around; }` }
+                ]
+            },
+            {
+                name: 'line-height',
+                description: 'Define o espaço entre linhas de texto.',
+                params: [
+                    { name: 'normal', type: 'keyword', desc: 'Padrão do navegador (~1.2)' },
+                    { name: 'number', type: 'number', desc: 'Multiplicador (recomendado). Ex: 1.6' },
+                    { name: 'length', type: 'unit', desc: 'Altura fixa. Ex: 24px' },
+                    { name: '%', type: 'unit', desc: 'Percentual do font-size' }
+                ],
+                examples: [
+                    { title: 'Leitura Confortável', code: `body {\n  font-size: 16px;\n  line-height: 1.6;\n  /* Altura da linha = 25.6px */\n}` }
+                ]
+            },
+            {
+                name: 'margin',
+                description: 'Define espaço externo do elemento (fora da borda).',
+                params: [
+                    { name: '1 value', type: 'pattern', desc: 'Todos os lados' },
+                    { name: '2 values', type: 'pattern', desc: 'vertical | horizontal' },
+                    { name: '4 values', type: 'pattern', desc: 'top | right | bottom | left' },
+                    { name: 'auto', type: 'keyword', desc: 'Automático (centraliza)' }
+                ],
+                examples: [
+                    { title: 'Margens', code: `.uniform { margin: 20px; }\n.asymmetric { margin: 10px 20px; }\n.custom { margin: 10px 20px 30px 40px; }\n.center { margin: 0 auto; }` }
+                ]
+            },
+            {
+                name: 'max-width',
+                description: 'Define a largura máxima do elemento.',
+                params: [
+                    { name: 'length', type: 'unit', desc: 'Largura máxima. Ex: 1200px, 100%' },
+                    { name: 'none', type: 'keyword', desc: 'Sem limite (padrão)' }
+                ],
+                examples: [
+                    { title: 'Container Responsivo', code: `.container {\n  width: 90%;\n  max-width: 1200px;\n  margin: 0 auto;\n}` }
+                ]
+            },
+            {
+                name: 'min-width',
+                description: 'Define a largura mínima do elemento.',
+                params: [
+                    { name: 'length', type: 'unit', desc: 'Largura mínima' },
+                    { name: 'auto', type: 'keyword', desc: 'Automático (padrão)' }
+                ],
+                examples: [
+                    { title: 'Responsivo com Mínimo', code: `.card {\n  width: 100%;\n  min-width: 250px;\n}` }
+                ]
+            },
+            {
+                name: 'opacity',
+                description: 'Define a transparência do elemento inteiro (incluindo filhos).',
+                params: [
+                    { name: '0-1', type: 'number', desc: '0 invisível, 1 opaco (padrão)' },
+                    { name: '0-100%', type: 'percentage', desc: 'Percentual de opacidade' }
+                ],
+                examples: [
+                    { title: 'Valores', code: `.hidden { opacity: 0; }\n.subtle { opacity: 0.7; }\n.visible { opacity: 1; }\n\nimg:hover { opacity: 0.8; }` }
+                ]
+            },
+            {
+                name: 'overflow',
+                description: 'Define o que fazer com conteúdo que transborda o elemento.',
+                params: [
+                    { name: 'visible', type: 'keyword', desc: 'Transborda visível (padrão)' },
+                    { name: 'hidden', type: 'keyword', desc: 'Corta o conteúdo' },
+                    { name: 'scroll', type: 'keyword', desc: 'Sempre mostra barra de rolagem' },
+                    { name: 'auto', type: 'keyword', desc: 'Barra só se necessário' }
+                ],
+                examples: [
+                    { title: 'Overflow', code: `.scrollable { overflow: auto; }\n.clipped { overflow: hidden; }\n.x-only { overflow-x: auto; overflow-y: hidden; }` }
+                ]
+            },
+            {
+                name: 'padding',
+                description: 'Define espaço interno do elemento (dentro da borda).',
+                params: [
+                    { name: '1 value', type: 'pattern', desc: 'Todos os lados' },
+                    { name: '2 values', type: 'pattern', desc: 'vertical | horizontal' },
+                    { name: '4 values', type: 'pattern', desc: 'top | right | bottom | left' }
+                ],
+                examples: [
+                    { title: 'Paddings', code: `.uniform { padding: 20px; }\n.asymmetric { padding: 10px 20px; }\n.custom { padding: 10px 20px 30px 40px; }\n.button { padding: 12px 24px; }` }
+                ]
+            },
+            {
+                name: 'position',
+                description: 'Define como o elemento é posicionado no fluxo do documento.',
+                params: [
+                    { name: 'static', type: 'keyword', desc: 'Fluxo normal (padrão)' },
+                    { name: 'relative', type: 'keyword', desc: 'Relativo ao fluxo normal' },
+                    { name: 'absolute', type: 'keyword', desc: 'Relativo ao ancestor posicionado' },
+                    { name: 'fixed', type: 'keyword', desc: 'Relativo à viewport (fica fixo ao rolar)' },
+                    { name: 'sticky', type: 'keyword', desc: 'Híbrido: normal até ficar fixo' }
+                ],
+                examples: [
+                    { title: 'Header Fixo', code: `header {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n}` },
+                    { title: 'Sticky Nav', code: `nav {\n  position: sticky;\n  top: 0;\n  background: white;\n  z-index: 50;\n}` }
+                ]
+            },
+            {
+                name: 'text-align',
+                description: 'Alinha o texto horizontalmente dentro do elemento.',
+                params: [
+                    { name: 'left', type: 'keyword', desc: 'Esquerda (padrão em LTR)' },
+                    { name: 'right', type: 'keyword', desc: 'Direita' },
+                    { name: 'center', type: 'keyword', desc: 'Centralizado' },
+                    { name: 'justify', type: 'keyword', desc: 'Justificado (ambos os lados)' }
+                ],
+                examples: [
+                    { title: 'Alinhamentos', code: `.left { text-align: left; }\n.center { text-align: center; }\n.right { text-align: right; }` }
+                ]
+            },
+            {
+                name: 'text-decoration',
+                description: 'Adiciona decoração ao texto (sublinhado, riscado, etc).',
+                params: [
+                    { name: 'none', type: 'keyword', desc: 'Sem decoração' },
+                    { name: 'underline', type: 'keyword', desc: 'Sublinhado' },
+                    { name: 'overline', type: 'keyword', desc: 'Linha acima' },
+                    { name: 'line-through', type: 'keyword', desc: 'Riscado' }
+                ],
+                examples: [
+                    { title: 'Decorações', code: `a { text-decoration: none; }\ns { text-decoration: line-through; }\nu { text-decoration: underline; }` }
+                ]
+            },
+            {
+                name: 'text-shadow',
+                description: 'Adiciona sombra ao texto.',
+                params: [
+                    { name: 'offset-x', type: 'length', desc: 'Deslocamento horizontal' },
+                    { name: 'offset-y', type: 'length', desc: 'Deslocamento vertical' },
+                    { name: 'blur-radius', type: 'length', desc: 'Desfoque (opcional)' },
+                    { name: 'color', type: 'color', desc: 'Cor da sombra' }
+                ],
+                examples: [
+                    { title: 'Sombras de Texto', code: `h1 { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }\n.glow { text-shadow: 0 0 10px rgba(255,0,0,0.8); }` }
+                ]
+            },
+            {
+                name: 'transform',
+                description: 'Aplica transformações geométricas ao elemento.',
+                params: [
+                    { name: 'translate()', type: 'function', desc: 'Move. Ex: translate(10px, 20px)' },
+                    { name: 'rotate()', type: 'function', desc: 'Rotaciona. Ex: rotate(45deg)' },
+                    { name: 'scale()', type: 'function', desc: 'Escala. Ex: scale(1.2)' },
+                    { name: 'skew()', type: 'function', desc: 'Inclina. Ex: skew(10deg)' },
+                    { name: 'matrix()', type: 'function', desc: 'Transformação 2D completa' }
+                ],
+                examples: [
+                    { title: 'Transformações', code: `.move { transform: translateX(20px); }\n.rotate { transform: rotate(45deg); }\n.scale { transform: scale(1.2); }\n.combined { transform: translateY(-5px) rotate(2deg); }` }
+                ]
+            },
+            {
+                name: 'transition',
+                description: 'Anima a mudança de propriedades CSS ao longo do tempo.',
+                params: [
+                    { name: 'property', type: 'keyword|string', desc: 'all ou propriedade específica' },
+                    { name: 'duration', type: 'time', desc: 'Duração. Ex: 0.3s, 300ms' },
+                    { name: 'timing-function', type: 'keyword|function', desc: 'ease, linear, ease-in, ease-out, cubic-bezier()' },
+                    { name: 'delay', type: 'time', desc: 'Atraso (opcional)' }
+                ],
+                examples: [
+                    { title: 'Smooth Hover', code: `button {\n  background: blue;\n  transition: all 0.3s ease;\n}\n\nbutton:hover {\n  background: darkblue;\n  transform: translateY(-2px);\n}` }
+                ]
+            },
+            {
+                name: 'user-select',
+                description: 'Define se o texto pode ser selecionado pelo usuário.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Comportamento padrão' },
+                    { name: 'text', type: 'keyword', desc: 'Selecionável' },
+                    { name: 'none', type: 'keyword', desc: 'Não selecionável' },
+                    { name: 'all', type: 'keyword', desc: 'Seleciona tudo ao clicar' }
+                ],
+                examples: [
+                    { title: 'Prevenir Seleção', code: `button { user-select: none; }\n.label { user-select: none; }\ncode { user-select: all; }` }
+                ]
+            },
+            {
+                name: 'visibility',
+                description: 'Mostra ou oculta o elemento preservando o espaço.',
+                params: [
+                    { name: 'visible', type: 'keyword', desc: 'Visível (padrão)' },
+                    { name: 'hidden', type: 'keyword', desc: 'Oculto mas ocupa espaço' },
+                    { name: 'collapse', type: 'keyword', desc: 'Para table rows/cols' }
+                ],
+                examples: [
+                    { title: 'Diferente de Display None', code: `.hidden-but-space { visibility: hidden; }\n.hidden { display: none; }` }
+                ]
+            },
+            {
+                name: 'width',
+                description: 'Define a largura do elemento.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Automático baseado em conteúdo' },
+                    { name: 'length', type: 'unit', desc: 'px, em, rem, %, vw' }
+                ],
+                examples: [
+                    { title: 'Larguras', code: `.fixed { width: 300px; }\n.percentage { width: 50%; }\n.screen { width: 100vw; }` }
+                ]
+            },
+            {
+                name: 'word-break',
+                description: 'Define como quebrar palavras longas.',
+                params: [
+                    { name: 'normal', type: 'keyword', desc: 'Padrão' },
+                    { name: 'break-all', type: 'keyword', desc: 'Quebra em qualquer ponto' },
+                    { name: 'break-word', type: 'keyword', desc: 'Quebra se necessário' },
+                    { name: 'keep-all', type: 'keyword', desc: 'Nunca quebra palavras' }
+                ],
+                examples: [
+                    { title: 'URLs Longas', code: `a { word-break: break-all; }\np { word-break: break-word; }` }
+                ]
+            },
+            {
+                name: 'z-index',
+                description: 'Define a ordem de sobreposição ao longo do eixo Z.',
+                params: [
+                    { name: 'auto', type: 'keyword', desc: 'Automático (padrão)' },
+                    { name: 'integer', type: 'number', desc: 'Número inteiro. -1, 0, 1, 100, 1000, etc' }
+                ],
+                examples: [
+                    { title: 'Layering', code: `.background { z-index: 1; }\n.content { z-index: 10; }\n.modal { z-index: 100; }\n.tooltip { z-index: 1000; }` }
+                ]
+            }
+        ];
+
+        // Render functions
+        function renderHTMLTags() {
+            const container = document.getElementById('htmlContent');
+            const sorted = [...htmlTags].sort((a, b) => a.name.localeCompare(b.name));
+            
+            container.innerHTML = sorted.map(tag => `
+                <div class="property-card" id="html-${tag.name}">
+                    <div class="property-name">&lt;${tag.name}&gt;</div>
+                    <span class="property-type">${tag.type}</span>
+                    <div class="property-description">${tag.description}</div>
+                    
+                    ${tag.attributes && tag.attributes.length ? `
+                        <div class="subsection">
+                            <div class="subsection-title">Atributos</div>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Atributo</th>
+                                        <th>Tipo</th>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tag.attributes.map(attr => `
+                                        <tr>
+                                            <td class="param-name">${attr.name}</td>
+                                            <td class="param-type">${attr.type}</td>
+                                            <td>${attr.desc}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    ` : ''}
+                    
+                    ${tag.examples && tag.examples.length ? `
+                        <div class="subsection">
+                            <div class="subsection-title">Exemplos</div>
+                            ${tag.examples.map(ex => `
+                                <div class="example-title">${ex.title}</div>
+                                <div class="code-wrap">
+                                    <div class="code-header">
+                                        <span><span class="code-header-dot dot-red"></span><span class="code-header-dot dot-yellow"></span><span class="code-header-dot dot-green"></span>HTML</span>
+                                        <button class="code-copy-btn" onclick="copyCode(event)">copiar</button>
+                                    </div>
+                                    <div class="code-block">${ex.code}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderCSSProperties() {
+            const container = document.getElementById('cssContent');
+            const sorted = [...cssProperties].sort((a, b) => a.name.localeCompare(b.name));
+            
+            container.innerHTML = sorted.map(prop => `
+                <div class="property-card" id="css-${prop.name}">
+                    <div class="property-name">${prop.name}</div>
+                    <div class="property-description">${prop.description}</div>
+                    
+                    ${prop.params && prop.params.length ? `
+                        <div class="subsection">
+                            <div class="subsection-title">Parâmetros</div>
+                            <table class="params-table">
+                                <thead>
+                                    <tr>
+                                        <th>Parâmetro</th>
+                                        <th>Tipo</th>
+                                        <th>Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${prop.params.map(p => `
+                                        <tr>
+                                            <td class="param-name">${p.name}</td>
+                                            <td class="param-type">${p.type}</td>
+                                            <td>${p.desc}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    ` : ''}
+                    
+                    ${prop.examples && prop.examples.length ? `
+                        <div class="subsection">
+                            <div class="subsection-title">Exemplos</div>
+                            ${prop.examples.map(ex => `
+                                <div class="example-title">${ex.title}</div>
+                                <div class="code-wrap">
+                                    <div class="code-header">
+                                        <span><span class="code-header-dot dot-red"></span><span class="code-header-dot dot-yellow"></span><span class="code-header-dot dot-green"></span>CSS</span>
+                                        <button class="code-copy-btn" onclick="copyCode(event)">copiar</button>
+                                    </div>
+                                    <div class="code-block">${ex.code}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateSidebar(page) {
+            const sidebarSection = document.getElementById('sidebarSection');
+            
+            if(page === 'html') {
+                const sorted = [...htmlTags].sort((a, b) => a.name.localeCompare(b.name));
+                sidebarSection.innerHTML = `
+                    <div class="nav-section-title">HTML Tags</div>
+                    ${sorted.map(tag => `
+                        <div class="nav-item" onclick="scrollToId('html-${tag.name}')">
+                            <span class="nav-item-tag">&lt;${tag.name}&gt;</span>
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                const sorted = [...cssProperties].sort((a, b) => a.name.localeCompare(b.name));
+                sidebarSection.innerHTML = `
+                    <div class="nav-section-title">CSS Properties</div>
+                    ${sorted.map(prop => `
+                        <div class="nav-item" onclick="scrollToId('css-${prop.name}')">
+                            <span class="nav-item-tag">${prop.name}</span>
+                        </div>
+                    `).join('')}
+                `;
+            }
+        }
+
+        function switchPage(page) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            
+            document.getElementById('htmlBtn').classList.remove('active');
+            document.getElementById('cssBtn').classList.remove('active');
+            
+            if(page === 'html') {
+                document.getElementById('htmlBtn').classList.add('active');
+            } else {
+                document.getElementById('cssBtn').classList.add('active');
+            }
+            
+            updateSidebar(page);
+            document.getElementById('sidebar').classList.remove('open');
+        }
+
+        function scrollToId(id) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        function copyCode(e) {
+            const btn = e.target;
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code);
+            const original = btn.textContent;
+            btn.textContent = 'Copiado!';
+            setTimeout(() => btn.textContent = original, 2000);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.property-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Initialize
+        renderHTMLTags();
+        renderCSSProperties();
+        updateSidebar('html');
+        switchPage('html');
+    </script>
+</body>
+</html>
